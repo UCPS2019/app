@@ -1,0 +1,48 @@
+<nb-card  [nbSpinner]="loading" nbSpinnerSize="xxlarge">
+    <nb-card-header>
+            <nb-card-header>
+                    <div style="text-align: center; background-color: #6D0D18; color: white; height:40px;margin: 5px; padding-top: 8px">LIBRETA DE NOTAS</div>
+            </nb-card-header>
+            <div>
+                <div class="card" style="width: 30rem;">                  
+                    <div class="contenedor">
+                        <div class="contenidointer">Alumno</div>
+                        <div class="contenido" >{{nomalu}}</div>                    
+                    </div>
+                    <div class="contenedor">
+                        <i class='fas fa-landmark' style='font-size:36px'></i>
+                        <div class="contenidointer"> Programa</div>
+
+                        <div class="contenido" >
+                                <p-dropdown [style]="{'width':'320px'}" [options]="listProgramas" [(ngModel)]="selectedPrograma" (onChange)="seleccionPrograma()" placeholder="Seleccione Programa"  optionLabel="pronom" [showClear]="true"></p-dropdown>
+                        </div>
+                    </div>
+                                                           
+                </div>                          
+            </div>
+      <!-- <span>Este es una Asistencinga </span> -->
+    </nb-card-header>  
+    <nb-card-body>
+      <p-table [value]="listCursos">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:40px">ID</th>
+                <th>Codigo Curso</th>
+                <th>Nombre Curso</th>
+                <th>Nota</th>
+                <th>Condición</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lib let-i="rowIndex">
+            <tr>
+                <td>{{i + 1}}</td>
+                <td>{{lib.curcod}}</td> 
+                <td>{{lib.curnom}}</td>
+                <td>{{lib.notfinpromfinal}}</td>
+                <td>{{lib.notfinestado}}</td>
+                
+            </tr>
+        </ng-template>
+    </p-table>
+    </nb-card-body>
+  </nb-card>

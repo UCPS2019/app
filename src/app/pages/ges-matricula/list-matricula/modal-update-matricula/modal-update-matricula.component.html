@@ -1,0 +1,154 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{titulo}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="myformmatricula">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Nombre Alumno</label>
+          <div class="col-sm-7" *ngIf="!flagIsModificar">
+            <input
+              id="busqueda"
+              type="text"
+              class="form-control"
+              placeholder="Nombre Alumno..."
+              formControlName="aludni"
+              [ngbTypeahead]="searchAlumnoXdni"
+              [resultFormatter]="formatearEntradaAlumnoXdni"
+              [inputFormatter]="formatearEntradaAlumnoXdni">
+          </div>
+          <div class="col-sm-7" *ngIf="flagIsModificar">
+            <input
+              disabled
+              type="text"
+              class="form-control"
+              placeholder="Nombre editar..."
+              formControlName="aludni">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Sede</label>
+          <div class="col-sm-7">
+            <select  class="form-control" formControlName="sedid">
+              <option *ngFor="let s of cbSedes" [ngValue]="s.sedid">{{s.seddes}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Programa</label>
+          <div class="col-sm-7">
+            <select  class="form-control" formControlName="proid">
+              <option *ngFor="let s of cbProgramas" [ngValue]="s.proid">{{s.pronom}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Turno</label>
+          <div class="col-sm-7">
+            <select  class="form-control" formControlName="turid">
+              <option *ngFor="let s of cbTurnos" [ngValue]="s.turid">{{s.turnom}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Nombre Banco</label>
+          <div class="col-sm-7">
+            <select  class="form-control" formControlName="matnomban">
+              <option *ngFor="let s of cbBancos" [ngValue]="s.descBan">{{s.descBan}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Codigo de Pago</label>
+          <div class="col-sm-7">
+            <input
+              formControlName="matcodpag"
+              type="text"
+              maxlength="30"
+              minlength="1"
+              class="form-control form-control-sm"
+              placeholder="Ejm: 857567516574">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Monto S/.</label>
+          <div class="col-sm-7">
+            <input
+              required
+              formControlName="matmonpag"
+              type="number"
+              maxlength="10"
+              class="form-control form-control-sm"
+              placeholder="En soles">
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Fecha</label>
+          <div class="col-sm-7">
+            <input
+              required
+              formControlName="matfec"
+              type="date"
+              maxlength="50"
+              class="form-control form-control-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <div class="row">
+          <label class="col-sm-5 col-form-label p-r-0">Observacion</label>
+          <div class="col-sm-7">
+            <input
+              formControlName="matobs"
+              type="text"
+              maxlength="50"
+              class="form-control form-control-sm"
+              placeholder="Ejm: Alumno con media beca">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <div *ngIf="formError" class="colorTextRed">Comprobar que todos los campos sean correctos</div>
+  <button style="background-color: #6D0D18" nbButton status="success" size="medium" [nbSpinner]="loadingGuardar" nbSpinnerStatus="success" nbSpinnerMessage="" (click)="btn_clickAceptar()">{{boton}}</button>
+  <button style="background-color: #D9BA82" type="button" class="btn btn-danger waves-effect text-center m-b-20" (click)="activeModal.close(false)">Cancelar</button>
+</div>
+

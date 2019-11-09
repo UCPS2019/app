@@ -1,0 +1,66 @@
+<nb-card [nbSpinner]="loading" nbSpinnerSize="xxlarge">
+    <nb-card-header>
+        <nb-card-header>
+            <div
+                style="text-align: center; background-color: #6D0D18; color: white; height:40px;margin: 5px; padding-top: 8px">
+                NOTAS FINALES</div>
+        </nb-card-header>
+        <div>
+            <div class="card" style="width: 30rem;">
+                <div class="contenedor">
+                    <div class="contenidointer">Curso</div>
+                    <div class="contenido">{{nombCur}}</div>
+                </div>
+
+            </div>
+        </div>
+        <!-- <span>Este es una Asistencinga </span> -->
+
+        <div align="right">
+            <button nbButton (click)="subirNotas()" class="mb-3" style="background-color: #6D0D18">Guardar notas finales</button>
+        </div>
+
+    </nb-card-header>
+    <nb-card-body>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:40px">ID</th>
+                        <th>DNI</th>
+                        <th>Apellidos y nombres</th>
+                        <th style="width:120px">Nota 1</th>
+                        <th style="width:120px">Nota 2</th>
+                        <th style="width:120px">Nota 3</th>
+                        <th>Promedio final</th>                
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let alunotf of listaNotasFinales; let i = index;">
+                        <td>{{i + 1}}</td>
+                        <td>{{alunotf.aludni}}</td>
+                        <td>{{alunotf.aluapepat+" "+alunotf.aluapemat+" "+alunotf.alunom}}</td>
+                        <td><input type="number" class="form-control form-control-sm"
+                                (change)="actualizarListNotasParcial1(i, $event.target)" 
+                                value="{{ alunotf.notas[1]}}">
+                        </td>
+                        <td><input type="number" class="form-control form-control-sm"
+                            (change)="actualizarListNotasParcial2(i, $event.target)" 
+                            value="{{ alunotf.notas[2]}}">
+                        </td>
+                        <td><input type="number" class="form-control form-control-sm"
+                            (change)="actualizarListNotasParcial3(i, $event.target)" 
+                            value="{{ alunotf.notas[3]}}">
+                        </td>
+                        <td><input type="number" class="form-control form-control-sm" 
+                            (change)="actualizarListNotasFinal(i, $event.target)" 
+                            value="{{alunotf.notfinpromfinal}}" disabled>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </nb-card-body>
+</nb-card>
