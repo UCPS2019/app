@@ -64,7 +64,8 @@
       true,
       "check-open-brace",
       "check-catch",
-      "check-else"
+      "check-else",
+      "check-whitespace"
     ],
     "prefer-const": true,
     "quotemark": [
@@ -94,7 +95,7 @@
     "unified-signatures": true,
     "variable-name": false,
     "whitespace": [
-      true,
+      false,
       "check-branch",
       "check-decl",
       "check-operator",
