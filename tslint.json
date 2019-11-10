@@ -8,7 +8,7 @@
       "multiline": {
         "objects": "always",
         "arrays": "always",
-        "functions": "never",
+        "functions": "always",
         "typeLiterals": "ignore"
       }
     }],
