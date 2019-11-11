@@ -6,8 +6,8 @@ export class GesPensionModel {
    pagcod : string;
    pagmontot: string;
    pagtipo : string;
-   pagestreg: string;
    pagcuota:string;
+   pagestreg: string;
     constructor(obj?: any) {
       this.pagid = obj && (obj.pagid) || null;
       this.matid = obj && (obj.matid) || null;

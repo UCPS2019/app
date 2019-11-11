@@ -7,6 +7,7 @@ export class GesPensionlListModel {
     aluapepat:string;
     aluapemat:string;
     matfec:string;
+    proid:string;
     constructor(obj?: any) {
       this.matid = obj && (obj.matid) || null;
       this.aludni = obj && (obj.aludni) || null;
@@ -15,7 +16,8 @@ export class GesPensionlListModel {
       this.pronom = obj && obj.pronom || null;  
       this.aluapepat = obj && obj.aluapepat || null;
       this.aluapemat = obj && obj.aluapemat || null;
-      this.matfec = obj && obj.matfec || null;  
+      this.matfec = obj && obj.matfec || null;
+      this.proid = obj && obj.proid || null;  
     }
   }
   

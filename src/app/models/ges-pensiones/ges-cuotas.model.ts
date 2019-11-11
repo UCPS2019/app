@@ -4,8 +4,8 @@ export class GesCuotasModel {
     pagid: string;
     cumon: string;
     cuestreg: string;
-
     cuid:string;
+    
     constructor(obj?: any) {
       this.cuid = obj && (obj.cuid) || null;
       this.cunumero = obj && (obj.cunumero) || null;

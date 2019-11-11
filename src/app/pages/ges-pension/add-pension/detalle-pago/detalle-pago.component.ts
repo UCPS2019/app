@@ -39,25 +39,24 @@ listarCuotas() {
       });
   }
 
-  numerosCuotas() {
-    this.loading = true;
-    this.cuotasService.getProgramaCuotas(this.idPago)
-      .subscribe(res => {   
-        console.log("Numero Cuotas",res);  
-        console.log("CuotasLista",res);
-        //this.listcuotas = res;
-        //this.loading = false;
-      });
-  }
-btnAddCuota() {
-    const modalR = this.modalService.open(ModalAddCuotaComponent, { size: 'lg'});
-    (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idPago);
-    modalR.result.then(result => {
-      if (result) {
-        this.listarCuotas();   
-      } else {
-      }
-    }).catch((res) => {});
-  }
+  // numerosCuotas() {
+  //   this.loading = true;
+  //   this.cuotasService.getProgramaCuotas(this.idPago)
+  //     .subscribe(res => {   
+  //       console.log("Numero Cuotas",res);  
+  //       console.log("CuotasLista",res);
+      
+  //     });
+  // }
+// btnAddCuota() {
+//     const modalR = this.modalService.open(ModalAddCuotaComponent, { size: 'lg'});
+//     (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idPago);
+//     modalR.result.then(result => {
+//       if (result) {
+//         this.listarCuotas();   
+//       } else {
+//       }
+//     }).catch((res) => {});
+//   }
 
 }

@@ -67,18 +67,25 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Tipo de Pago</label>
+                <label class="col-sm-5 col-form-label p-r-0">N° CUOTA</label>
                   <div class="col-sm-7">
-                    <select  class="form-control" formControlName="formpagtipo">
-                      <option value="1">MENSUAL</option>
-                      <option value="2">QUINCENAL</option>
-                      <option value="4">SEMANAL</option>
-                    </select>
+                      <input
+                      formControlName="formnumcuota"
+                      type="text"
+                      maxlength="20"
+                      disabled="true"
+                      class="form-control form-control-sm"
+                      >
+                
                   </div>
               </div>
             </div>
             
           </div>
+          <div class="alert alert-danger" role="alert">
+              {{txtmensaje}}
+            </div>
+          
         </form>
       </div>
       <div class="modal-footer">

@@ -29,13 +29,14 @@ export class AddPensionComponent implements OnInit {
     }
     ngOnInit(): void {
       this.listarPension();
-      //Proband
+      //Modificando
     }
     listarPension() {
       this.loading = true;
       this.pensionListservice.getListarPensionList()
         .subscribe(res => {
           this.listPension = res;
+          console.log("LISTA DE PENSIONES ",this.listPension);
           this.loading = false;
         });
     }
@@ -58,16 +59,11 @@ export class AddPensionComponent implements OnInit {
     }
 
     abrirDetallesPensiones(idMatr: number,obj:GesPensionlListModel) {
-        var nombres=obj.alunom +" "+obj.aluapepat+" "+obj.aluapemat;
-        var matri = obj.matid;
-        var sede = obj.seddes;
-        var programa = obj.pronom;
-        this.router.navigate(['/pages/ges-pension/pensiondetalle/' + idMatr+'/'+nombres+"/"+sede+"/"+programa]);
+        var dni = obj.aludni;
+        var idpro = obj.proid; 
+        this.router.navigate(['/pages/ges-pension/pensiondetalle/' +dni+"/"+idpro+"/"+idMatr]);
       }
-    addPension(id: string) {       
-     
-       
-    }
+    
 
     editarPension(dni: string) {
     }

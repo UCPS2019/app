@@ -23,7 +23,7 @@ const rutasgesusu: Routes = [{
   ],
 },
   {
-    path: 'pensiondetalle/:id/:nombres/:sede/:programa',
+    path: 'pensiondetalle/:dni/:idprograma/:idMatr',
     component: PensionDetalleComponent,
     // data: {modo: 2}
   },

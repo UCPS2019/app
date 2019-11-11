@@ -9,6 +9,10 @@ import { throwError } from 'rxjs';
 import 'rxjs-compat/add/operator/map';
 import 'rxjs-compat/add/operator/catch';
 import { GesProgramaCuotas } from '../../models/ges-pensiones/ges-programa_cuotas.model';
+import { GesCuotasPrograma } from '../../models/ges-pensiones/ges-cuotas-programa.model';
+import { GesNumeroCuotas } from '../../models/ges-pensiones/ges-numero-cuotas';
+import { GesAlumnoDetalleModel } from '../../models/ges-pensiones/ges-alumno-detalle.model';
+
 
 
 @Injectable()
@@ -35,12 +39,40 @@ export class PensionService {
   }
   public postBuscarPensionxId(id: string): Observable<GesPensionModel> {
     return this._http
-      .post<any>(this.rutaPension + `/pension/busqueda_id.php`, '{"pagid":"' + id + '"}')
+      .post<any>(this.rutaPension + `/pension/pension_id.php`, '{"pagid":"' + id + '"}')
       .map((response: any) => {
         return new GesPensionModel(response);
       })
       .catch(this.handleError);
   }
+
+  public postCuotasPrograma(idpro: string): Observable<GesCuotasPrograma> {
+    return this._http
+      .post<any>(this.rutaPension + `/pension/read_cuotas_programa.php`, '{"proid":"' + idpro + '"}')
+      .map((response: any) => {
+        return new GesCuotasPrograma(response);
+      })
+      .catch(this.handleError);
+  }
+  public postNumeroCuotas(matid: string,aludni:string): Observable<GesNumeroCuotas> {
+    return this._http
+      .post<any>(this.rutaPension + `/pension/read_cuotas_pagadas.php`, '{"matid":"' + matid +'","aludni":"'+aludni+'"}')
+      .map((response: any) => {
+        return new GesNumeroCuotas(response);
+      })
+      .catch(this.handleError);
+  }
+  public postAlumnoDetalle(matid: string,aludni:string): Observable<GesAlumnoDetalleModel> {
+    return this._http
+      .post<any>(this.rutaPension + `/pension/pension_detalle_alumno.php`, '{"matid":"' + matid +'","aludni":"'+aludni+'"}')
+      .map((response: any) => {
+        return new GesAlumnoDetalleModel(response);
+      })
+      .catch(this.handleError);
+  }
+  
+
+  
   public postBuscarPensionxParteIdDetalle(partOfid: string): Observable<GesPensionModel[]> {
     return this._http
       .post<any>(this.rutaPension + `/pension/pension_pago.php`, '{"matid":"' + partOfid + '"}')
@@ -49,6 +81,8 @@ export class PensionService {
       })
       .catch(this.handleError);
   }
+
+
   public postCrearPension(pension: GesPensionModel): Observable<GesPensionModel> {
     return this._http
       .post(this.rutaPension + `/pension/create.php`, pension)
@@ -58,17 +92,7 @@ export class PensionService {
       })
       .catch(this.handleError);
   }
-  public getProgramaCuotas(proid:string): Observable<GesProgramaCuotas> {
-    return this._http
-      .post(this.rutaPension + `/pension/read_cuotas_programa.php`, '{"proid":"' + proid + '"}')
-      .map((response: GesProgramaCuotas) => {
-        return response;
-      })
-      .catch(this.handleError);
-  }
-  
 
-  
   public postCrearCuota(cuota: GesCuotaModel): Observable<GesCuotaModel> {
     return this._http
       .post(this.rutaPension + `/pension/create_cuota.php`, cuota)
@@ -78,8 +102,8 @@ export class PensionService {
       })
       .catch(this.handleError);
   }
+  
   public putModificarPension(pension: GesPensionModel): Observable<GesPensionModel> {
-    console.log("La pension",pension);
     return this._http
       .put(this.rutaPension + `/pension/update.php`, pension)
       .map((response: GesPensionModel) => {

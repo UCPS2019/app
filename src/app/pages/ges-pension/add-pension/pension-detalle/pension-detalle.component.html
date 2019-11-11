@@ -20,8 +20,12 @@
                         <div class="contenidointer">PROGRAMA</div>
                         <div class="contenido" >{{miprograma}}</div>
                     </div>
+                    <div class="contenedor">
+                        <div class="contenidointer">N° CUOTAS</div>
+                        <div class="contenido" >{{txt_cuotas}}</div>
+                    </div>
                 </div>
-              </div>
+            </div>
 
       </div>
       <br>
@@ -103,11 +107,6 @@
                   <h6 class="d-flex justify-content-center"><strong>MODIFICAR</strong></h6>
                 </div>
               </th>
-              <th style="width: 8%">
-                <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>DETALLES</strong></h6>
-                </div>
-              </th>
             </tr>
             </thead>
             <tbody>
@@ -140,15 +139,7 @@
                     <p>{{m.pagcod}} </p>
                   </div>
                 </div>
-              </td>
-              <!-- <td>
-                <div  class="d-flex flex-column">
-                  <div class="d-flex justify-content-center" >
-                    <p>{{m.pagtipo}}</p>
-                  </div>
-                </div>
-              </td> -->
-              
+              </td>     
               <td>
                 <div  class="d-flex flex-column">
                   <div class="d-flex justify-content-center" >
@@ -159,31 +150,17 @@
               <td>
                 <div  class="d-flex flex-column">
                   <div class="d-flex justify-content-center" >
-                    <p>{{m.pagtipo}}</p>
+                    <p>{{m.pagcuota}}</p>
                   </div>
                 </div>
               </td>
               <td>
                 <div  class="d-flex flex-column">
                   <div class="d-flex justify-content-center" >
-                    <i (click)="editarPension(m.matid)" class="ion-edit" style="font-size:23px;" placement="top" ngbTooltip="Editar Docente"></i>
+                    <i (click)="editarPension(m.pagid)" class="ion-edit" style="font-size:23px;" placement="top" ngbTooltip="Editar Docente"></i>
                   </div>
                 </div>
               </td>
-              <td>
-                <div  class="d-flex flex-column">
-                  <div class="d-flex justify-content-center">
-                    <i (click)="abrirPensionDetalles(m.pagid)" class="ion-clipboard" style="font-size:23px;" placement="top" ngbTooltip="Detalles Pension"></i>
-                  </div>
-                </div>
-              </td>
-         <!--     <td class="text-muted">
-                <div  class="d-flex flex-column">
-                  <div class="d-flex justify-content-center" >
-                    <p><strong>{{m.EstadoActivo | estadotipomatriculaPipe}}</strong></p>
-                  </div>
-                </div>
-              </td>-->
             </tr>
     
             </tbody>

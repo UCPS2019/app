@@ -12,58 +12,97 @@ import {Router} from '@angular/router';
   styleUrls: ['./pension-detalle.component.scss'],
 })
 export class PensionDetalleComponent {
-idMatr: string;
-minombre:string;
-misede:string;
-miprograma:string;
+dni:string;
+idprograma:string;
+idMatricula:string;
 loading = false;
 listmisPensiones: GesPensionModel[] = [];
 modalref: NgbModalRef;
 mipension:GesPensionlListModel=new GesPensionlListModel();
+minombre:string;
+misede:string;
+miprograma:string;
+numero_cuotas:string;
+numero_cuotas_pagadas:string;
+txt_cuotas:string;
 
 constructor(private router: Router,private modalService: NgbModal,
             private pensionservice: PensionService,private route: ActivatedRoute) {
             route.params.subscribe(
                 data => {
-                    this.idMatr = data.id;
-                    this.minombre=data.nombres;
-                    this.miprograma=data.programa;
-                    this.misede=data.sede;
+                    this.dni = data.dni;
+                    this.idprograma=data.idprograma;
+                    this.idMatricula=data.idMatr;
                 },
             );
 }
 ngOnInit(): void {
-  this.listarPension();
-  
-  
+  this.cuotasPrograma();
+  this.alumnoDetalle();
+  this.numerCuotas();
+  this.listarPension(); 
+  this.cuotasPagadas();
 }
 listarPension() {
   this.loading = true;
-  this.pensionservice.postBuscarPensionxParteIdDetalle(this.idMatr)
+  this.pensionservice.postBuscarPensionxParteIdDetalle(this.idMatricula)
     .subscribe(res => {     
-      console.log("Gaaaa",res);
       this.listmisPensiones = res;
       this.loading = false;
+      this.cuotasPagadas();
     });
 }
+cuotasPrograma(){
+  this.pensionservice.postCuotasPrograma(this.idprograma).subscribe(
+    resp => {
+      this.numero_cuotas = resp.procuota;
+      this.loading = false;
+    },
+    err => {
+      console.log(err);
+    });
+}
+alumnoDetalle(){
+  this.pensionservice.postAlumnoDetalle(this.idMatricula,this.dni)
+  .subscribe(res => {
+    this.minombre  = res.alunom +" "+ res.aluapepat +" "+ res.aluapemat; 
+    this.misede =res.seddes;
+    this.miprograma= res.pronom;
+  });
+}
+numerCuotas(){
+  this.pensionservice.postNumeroCuotas(this.idMatricula,this.dni).subscribe(
+    resp => {
+      this.numero_cuotas_pagadas=resp.cuotaspag;
+    },
+    err => {
+      console.log(err);
+    });
+}
+
+cuotasPagadas(){
+  this.txt_cuotas =  parseInt((this.numero_cuotas_pagadas))+" - "+this.numero_cuotas;
+}
+
 btnAddPension() {
   const modalR = this.modalService.open(ModalAddPensionComponent, { size: 'lg'});
-  (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idMatr);
+  (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idMatricula,this.numero_cuotas_pagadas,this.numero_cuotas);
   modalR.result.then(result => {
     if (result) {
       this.listarPension();
+      this.numerCuotas();
+      this.cuotasPrograma();
+      this.cuotasPagadas();
     } else {
     }
   }).catch((res) => {});
 }
 editarPension(id: string) {
-   //console.log(dni);
   this.pensionservice.postBuscarPensionxId(id)
     .subscribe(res => {
-        //console.log("mi objeto es :",res);
-      if (res.matid) {
+      if (res.pagid) {
         this.modalref = this.modalService.open(ModalAddPensionComponent, {size: 'lg'});
-        (<ModalAddPensionComponent>(this.modalref.componentInstance)).iniciarFormulario(res,this.idMatr);
+        (<ModalAddPensionComponent>(this.modalref.componentInstance)).iniciarFormulario(res,this.idMatricula);
         this.modalref.result.then(result => {
           if (result) {
             this.listarPension()
@@ -76,9 +115,6 @@ editarPension(id: string) {
     });
 }
 
-abrirPensionDetalles(idpago:string) {
-  console.log("El Id del Pago",idpago);
-  this.router.navigate(['/pages/ges-pension/detallepago/' + idpago]);
-}
+
 
 }
