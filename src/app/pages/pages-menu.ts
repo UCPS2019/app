@@ -186,10 +186,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden:true,
     data:[{
       number:2
-    },{
-      number:4
-    }
-  ],
+
+    }],
+
     children: [
       {
         title: 'Subir notas',
@@ -206,8 +205,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden:true,
     data:[{
       number:1
-    },{
-      number:4
     }],
     children: [
       {
@@ -215,6 +212,40 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ges-nota/libretanotas',
       },
     ],
+  },
+
+  {
+    title: 'Notas Aplazados',
+    icon: 'nb-compose',
+    hidden:true,
+    data:[{
+      number:4   
+    }],
+    children: [
+      {
+        title: 'Subir aplazados',
+        link: '/pages/ges-nota/notaaplazados',
+      },
+    ],
+
+
+  },
+
+  {
+    title: 'Docente Curso',
+    icon: 'nb-compose',
+    hidden:true,
+    data:[{
+      number:4   
+    }],
+    children: [
+      {
+        title: 'Asignacion',
+        link: '/pages/ges-configuracion/DocenteCurso',
+      },
+    ],
+
+
   },
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 

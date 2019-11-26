@@ -22,7 +22,7 @@
                 <th>Programa</th>
                 <th>Curso</th>
                 <th>turno</th>
-                <th>Registar notas parciales</th>
+                <!-- <th>Registar notas parciales</th> -->
                 <th>Registrar notas finales</th>
             </tr>
         </ng-template>
@@ -32,18 +32,18 @@
                 <td>{{curso.pronom}}</td> 
                 <td>{{curso.curnom}}</td>
                 <td>{{curso.turnom}}</td>
-                <td>
+                <!-- <td>
                     <div class="d-flex justify-content-center" >
-                        <i (click)="ingresarNotasCurso(curso.curid,1)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 1"></i>
+                        <i (click)="ingresarNotasCurso(curso.proid,curso.curid,curso.turid,1)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 1"></i>
 
-                        <i (click)="ingresarNotasCurso(curso.curid,2)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 2"></i>
+                        <i (click)="ingresarNotasCurso(curso.proid,curso.curid,curso.turid,2)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 2"></i>
 
-                        <i (click)="ingresarNotasCurso(curso.curid,3)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 3"></i>     
+                        <i (click)="ingresarNotasCurso(curso.proid,curso.curid,curso.turid,3)" class="ion-android-document" style="font-size:20px;" placement="top" ngbTooltip="Ingresar Nota 3"></i>     
                     </div>
-                </td>
+                </td> -->
                 <td>
                     <div class="d-flex justify-content-center" >
-                        <i  (click)="ingresarNotasFinales(curso.curid)" class="ion-clipboard" style="font-size:20px;" placement="top" ngbTooltip="Ver notas finales"></i>
+                        <i  (click)="ingresarNotasFinales(curso.proid,curso.curid,curso.turid)" class="ion-clipboard" style="font-size:20px;" placement="top" ngbTooltip="Ver notas finales"></i>
                     
                     </div>
                 </td>

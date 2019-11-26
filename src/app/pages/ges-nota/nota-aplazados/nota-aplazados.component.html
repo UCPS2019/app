@@ -1,0 +1,92 @@
+<nb-card [nbSpinner]="loading" nbSpinnerSize="xxlarge">
+    <nb-card-header>
+        <nb-card-header>
+            <div
+                style="text-align: center; background-color: #6D0D18; color: white; height:40px;margin: 5px; padding-top: 8px">
+                SUBIR NOTA DE APLAZADOS</div>
+        </nb-card-header>
+
+        <div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                    <nb-card>
+                        <nb-card-body>
+                            <div style="width: 30rem; height: 7.5rem;">
+                                <form [formGroup]="myformmatricula">
+                                    <div div class="contenedor">
+                                        <div class="contenidointer">Alumno:</div>
+                                        <div class="input-group has-person-icon">
+                                            <input id="busqueda" type="text" class="form-control"
+                                                placeholder="Ingrese nombre del Alumno..."
+                                                [ngbTypeahead]="searchAlumnoXdni"
+                                                [resultFormatter]="formatearEntradaAlumnoXdni" formControlName="aludni"
+                                                [inputFormatter]="formatearEntradaAlumnoXdni"
+                                                (change)="listarProgramasAlumno()">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                    <nb-card>
+                        <nb-card-body>
+                            <div style="width: 30rem; height: 7.5rem;">
+                                <div class="contenedor">
+                                    <i class='fas fa-landmark' style='font-size:36px'></i>
+                                    <div class="contenidointer"> Programa</div>
+
+                                    <div class="contenido">
+                                        <p-dropdown [style]="{'width':'320px'}" [options]="listProgramas"
+                                            [(ngModel)]="selectedPrograma" (onChange)="seleccionPrograma()"
+                                            placeholder="Seleccione Programa" optionLabel="pronom" [showClear]="true">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+            </div>
+
+            <div align="right">
+                <button nbButton (click)="subirNotas()" class="mb-3" style="background-color: #6D0D18">Guardar notas
+                    aplazados</button>
+            </div>
+        </div>
+        <!-- <span>Este es una Asistencinga </span> -->
+    </nb-card-header>
+    <nb-card-body>
+        <p-table [value]="listGuardarAplazados">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:40px">ID</th>
+                    <th>Codigo Curso</th>
+                    <th>Nombre Curso</th>
+                    <th>Turno</th>
+                    <th>Condición</th>
+                    <th>Promedio final</th>
+                    <th>Nota aplazados</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-aplaz let-i="rowIndex">
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{aplaz.curcod}}</td>
+                    <td>{{aplaz.curnom}}</td>
+                    <td>{{aplaz.turnom}}</td>
+                    <td>{{aplaz.notfinestado}}</td>
+                    <td>{{aplaz.notfinpromfinal}}</td>                    
+                    <td><input type="number" class="form-control form-control-sm"
+                        (change)="actualizarListNotasAplazados(i, $event.target)"
+                        value="{{aplaz.notfinaplazado}}" >
+                </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </nb-card-body>
+</nb-card>

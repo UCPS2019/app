@@ -24,6 +24,8 @@ misede:string;
 miprograma:string;
 numero_cuotas:string;
 numero_cuotas_pagadas:string;
+mis_cuotas:string;
+cuotas_programa:string;
 txt_cuotas:string;
 
 constructor(private router: Router,private modalService: NgbModal,
@@ -37,11 +39,12 @@ constructor(private router: Router,private modalService: NgbModal,
             );
 }
 ngOnInit(): void {
-  this.cuotasPrograma();
+  //this.cuotasPrograma();
   this.alumnoDetalle();
-  this.numerCuotas();
   this.listarPension(); 
-  this.cuotasPagadas();
+  // this.numerCuotas();
+  
+  // this.cuotasPagadas();
 }
 listarPension() {
   this.loading = true;
@@ -68,6 +71,9 @@ alumnoDetalle(){
     this.minombre  = res.alunom +" "+ res.aluapepat +" "+ res.aluapemat; 
     this.misede =res.seddes;
     this.miprograma= res.pronom;
+    this.mis_cuotas = res.cuotaspag;
+    this.cuotas_programa = res.procuota;
+
   });
 }
 numerCuotas(){
@@ -86,13 +92,14 @@ cuotasPagadas(){
 
 btnAddPension() {
   const modalR = this.modalService.open(ModalAddPensionComponent, { size: 'lg'});
-  (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idMatricula,this.numero_cuotas_pagadas,this.numero_cuotas);
+  (<ModalAddPensionComponent>(modalR.componentInstance)).enviarId(this.idMatricula,this.mis_cuotas,this.cuotas_programa);
   modalR.result.then(result => {
     if (result) {
       this.listarPension();
-      this.numerCuotas();
-      this.cuotasPrograma();
-      this.cuotasPagadas();
+      this.alumnoDetalle();
+      //this.numerCuotas();
+      //this.cuotasPrograma();
+      //this.cuotasPagadas();
     } else {
     }
   }).catch((res) => {});

@@ -1,9 +1,9 @@
 <nb-card size="medium" [nbSpinner]="loading" nbSpinnerSize="xxlarge">
         <nb-card-header>
-          <span>Administrativo</span>
+          <span>Lista de Administrativos</span>
         </nb-card-header>
         <nb-card-body>
-          <button style="background-color: #6D0D18" nbButton class="mb-3" (click)="btnAddAdministrativo()">Agregar Administrativo</button>
+          <button style="background-color: #6D0D18" nbButton class="mb-3" (click)="btnAddAdministrativo()">Nuevo Administrativo</button>
           <table class="table table-bordered table-hover-cells">
             <thead>
             <tr>
@@ -19,25 +19,10 @@
               </th>
               <th style="width: 12%">
                 <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>Nombres</strong></h6>
+                  <h6 class="d-flex justify-content-center"><strong>Nombres y Apellidos</strong></h6>
                 </div>
               </th>
               <th style="width: 12%">
-                <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>Apellidos</strong></h6>
-                </div>
-              </th>
-              <!-- <th style="width: 12%">
-                <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>CUI</strong></h6>
-                </div>
-              </th> -->
-              <th style="width: 12%">
-                <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>Usuario</strong></h6>
-                </div>
-              </th>
-              <th style="width: 10%">
                 <div class="table-contain">
                   <h6 class="d-flex justify-content-center"><strong>Telefono</strong></h6>
                 </div>
@@ -47,14 +32,14 @@
                   <h6 class="d-flex justify-content-center"><strong>Direccion</strong></h6>
                 </div>
               </th>
-              <th style="width: 12%">
+              <th style="width: 10%">
                 <div class="table-contain">
                   <h6 class="d-flex justify-content-center"><strong>Correo</strong></h6>
                 </div>
               </th>
               <th style="width: 12%">
                 <div class="table-contain">
-                  <h6 class="d-flex justify-content-center"><strong>Fec Nacimiento</strong></h6>
+                  <h6 class="d-flex justify-content-center"><strong>Sede</strong></h6>
                 </div>
               </th>
               <th style="width: 12%">
@@ -89,21 +74,7 @@
               <td>
                 <div  class="d-flex flex-column">
                   <div class="d-flex justify-content-center" >
-                    <p>{{m.admnom}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div  class="d-flex flex-column">
-                  <div class="d-flex justify-content-center" >
-                    <p>{{m.admapepat}} {{m.admpemat}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div  class="d-flex flex-column">
-                  <div class="d-flex justify-content-center" >
-                    <p>{{m.admnomusu}}</p>
+                    <p>{{m.admnom}} {{m.admapepat}} {{m.admapemat}}</p>
                   </div>
                 </div>
               </td>
@@ -131,7 +102,7 @@
               <td>
                 <div  class="d-flex flex-column">
                   <div class="d-flex justify-content-center" >
-                    <p>{{m.admfecnac}}</p>
+                    <p>{{m.sednom}}</p>
                   </div>
                 </div>
               </td>

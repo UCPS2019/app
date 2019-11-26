@@ -5,6 +5,7 @@ import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 //import {DeleteAlumnoModel, GesUsuAlumnoModel} from '../../../models/ges-usu/ges-usu-alumno.model';
 import { DocenteListCursosModel } from '../../../models/ges-nota/docente-cursos.model';
 import { DocenteListCursosService } from '../../../services/ges-notas/docente-listcursos.service';
+import {SeguridadService} from '../../../services/authentication/seguridad.service';
 
 @Component({
   selector: 'ngx-list-curso',
@@ -16,10 +17,12 @@ export class ListCursoComponent implements OnInit {
   cars:any[];
   loading = false;
   nomdoc: string;
+  dnidoc: string;
   listaCursosDocente: DocenteListCursosModel[]=[];
 
 
-  constructor(private router: Router, private docentelistcursoservice:DocenteListCursosService) {
+  constructor(private router: Router, private docentelistcursoservice:DocenteListCursosService,
+              private seguridadService: SeguridadService) {
     this.nomdoc="docente";
     this.cars = [
       { fila: '1',pronom:'COCINA',curnom:'GASTRONOMIA-EDUCACION',turnom:'turno2'},
@@ -30,8 +33,9 @@ export class ListCursoComponent implements OnInit {
       { fila: '6',pronom:'ELECTRÓNICA',curnom:'REDES',turnom:'turno1'}
   ];
   }
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
+    this.dnidoc=this.seguridadService.getTokenAsObj().jti;
+    console.log('token', this.dnidoc);
     this.listarCursosDocente();
 
   }
@@ -49,14 +53,14 @@ export class ListCursoComponent implements OnInit {
   }
 
 
-
-  ingresarNotasCurso(curid: number,tipnottipo: number) {
-    this.router.navigate(['/pages/ges-nota/curso/' + curid+'/'+tipnottipo ]);
+  
+  ingresarNotasCurso(proid:number, curid: number, turid:number, tipnottipo: number) {
+    this.router.navigate(['/pages/ges-nota/curso/'+proid+'/'+curid+'/'+turid+'/'+tipnottipo ]);
   }
   
   
-  ingresarNotasFinales(curid: number) {
-    this.router.navigate(['/pages/ges-nota/notasfinales/' + curid ]);
+  ingresarNotasFinales(proid:number, curid: number, turid:number) {
+    this.router.navigate(['/pages/ges-nota/notasfinales/'+proid+'/'+curid+'/'+turid ]);
   }
   
 }

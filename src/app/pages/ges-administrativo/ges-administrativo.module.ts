@@ -8,6 +8,7 @@ import {GesAdministrativoComponent} from './ges-administrativo.component';
 import {ModalAddAdministrativoComponent} from './add-administrativo/modal-add-administrativo/modal-add-administrativo.component';
 import {AdministrativoService} from '../../services/ges-administrativo/administrativo.service';
 import {UtilsService} from '../../services/utils.service';
+import {SedeService} from '../../services/ges-sede/sede.service';
 
 const rutasgesusu: Routes = [{
   path: '',
@@ -41,6 +42,7 @@ const rutasgesusu: Routes = [{
   providers: [
     AdministrativoService,
     UtilsService,
+    SedeService,
   ],
 })
 export class GesAdministrativoModule { }

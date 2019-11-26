@@ -5,6 +5,7 @@ import {NbActionsModule, NbDialogModule, NbWindowModule} from '@nebular/theme';
 import {RouterModule, Routes} from '@angular/router';
 import {ListCursoComponent} from './list-curso/list-curso.component';
 import {LibretaNotasComponent} from './libreta-notas/libreta-notas.component';
+import {NotaAplazadosComponent} from './nota-aplazados/nota-aplazados.component';
 import {GesNotaComponent} from './ges-nota.component';
 import {DropdownModule} from 'primeng/dropdown';
 // import {ModalAddDocenteComponent} from './add-docente/modal-add-docente/modal-add-docente.component';
@@ -19,7 +20,9 @@ import { DocenteListCursosService } from '../../services/ges-notas/docente-listc
 import { AlumnoListNotasService } from '../../services/ges-notas/alumno-listnotas.service';
 import { AlumnoListNotasFinalesService } from '../../services/ges-notas/alumno-listnotasfinales.service';
 import { AlumnoLibretaNotasService } from '../../services/ges-notas/alumno-libretanotas.service';
-
+import {AlumnoService} from '../../services/ges-usu/alumno.service';
+import {AlumnoAplazadosService} from '../../services/ges-notas/alumno-aplazados.service';
+import {SeguridadService} from '../../services/authentication/seguridad.service';
 
 const rutasgesusu: Routes = [{
   path: '',
@@ -33,13 +36,17 @@ const rutasgesusu: Routes = [{
       path: 'libretanotas',
       component: LibretaNotasComponent,
     },
+    {
+      path: 'notaaplazados',
+      component: NotaAplazadosComponent,
+    },
   ],
 },{
-    path: 'curso/:curid/:tipnottipo',
+    path: 'curso/:proid/:curid/:turid/:tipnottipo',
     component: NotaAlumnoComponent,
   },
   {
-    path: 'notasfinales/:curid',
+    path: 'notasfinales/:proid/:curid/:turid',
     component: NotasFinalesComponent,
   }
 ];
@@ -51,6 +58,7 @@ const rutasgesusu: Routes = [{
     NotaAlumnoComponent,
     NotasFinalesComponent,
     LibretaNotasComponent,
+    NotaAplazadosComponent,
     // AddDocenteComponent,
   ],
   imports: [
@@ -76,6 +84,9 @@ const rutasgesusu: Routes = [{
     AlumnoListNotasService,
     AlumnoListNotasFinalesService,
     AlumnoLibretaNotasService,
+    AlumnoService,
+    AlumnoAplazadosService,
+    SeguridadService,
 
   ],
 })

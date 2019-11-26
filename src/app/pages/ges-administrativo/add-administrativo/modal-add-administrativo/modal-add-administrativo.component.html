@@ -10,7 +10,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">DNI Adtvo</label>
+                <label class="col-sm-5 col-form-label p-r-0">DNI ADM</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formdni"
@@ -24,7 +24,7 @@
 
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Nombres Adtvo</label>
+                <label class="col-sm-5 col-form-label p-r-0">Nombres</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formnombres"
@@ -68,23 +68,9 @@
           </div>
 
           <div class="form-row">
-            <!-- <div class="form-group col-md-6">
-              <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">CUI Alumno</label>
-                <div class="col-sm-7">
-                  <input
-                    formControlName="formcui"
-                    type="text"
-                    maxlength="50"
-                    class="form-control form-control-sm"
-                    placeholder="Ejm: 20191957">
-                </div>
-              </div>
-            </div> -->
-
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Correo Adtvo</label>
+                <label class="col-sm-5 col-form-label p-r-0">Correo</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formcorreo"
@@ -95,6 +81,18 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group col-md-6">
+              <div class="row">
+                <label class="col-sm-5 col-form-label p-r-0">Sede</label>
+                <div class="col-sm-7">
+                  <select  class="form-control" formControlName="sedid">
+                   <option *ngFor="let s of cbSedes" [ngValue]="s.sedid">{{s.seddes}}</option> 
+                  </select>
+                </div>
+              </div>
+            </div>
+            
           </div>
 
           <div class="form-row">
@@ -113,7 +111,7 @@
 
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Telefono Adtvo</label>
+                <label class="col-sm-5 col-form-label p-r-0">Telefono</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formtel"
@@ -129,7 +127,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Direccion Adtvo</label>
+                <label class="col-sm-5 col-form-label p-r-0">Direccion</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formdir"
@@ -157,9 +155,9 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <div *ngIf="!flagIsModificar" class="form-group col-md-6">
               <div class="row">
-                <label class="col-sm-5 col-form-label p-r-0">Contrasena Usuario</label>
+                <label class="col-sm-5 col-form-label p-r-0">Contrasena</label>
                 <div class="col-sm-7">
                   <input
                     formControlName="formcont"
@@ -169,6 +167,18 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group col-md-6">
+              <div class="row">
+                <label class="col-sm-5 col-form-label p-r-0"> Cargo </label>
+                <div class="col-sm-7">
+                  <select  class="form-control" formControlName="formtipo">
+                    <option *ngFor="let s of cbTipos" [ngValue]="s.descTip"> {{s.descTip}} </option> 
+                  </select>
+                </div>
+              </div>
+            </div>
+            
 
           </div>
         </form>

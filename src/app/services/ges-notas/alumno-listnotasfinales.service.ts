@@ -15,9 +15,9 @@ export class AlumnoListNotasFinalesService {
 
   }
   
-  public getListarNotasFinalesAlumnos(curid: string): Observable<AlumnoNotasFinalesModel[]> {
+  public getListarNotasFinalesAlumnos(proid: string,curid: string, turid:string): Observable<AlumnoNotasFinalesModel[]> {
     return this._http
-      .post<any>(this.rutaCurso + `/nota/read_nota_final.php`,'{"curid":"'+curid+'"}')
+      .post<any>(this.rutaCurso + `/nota/read_nota_final.php`,'{"proid":"'+proid+'","curid":"'+curid+'","turid":"'+turid+'"}')
       .map((response: any) => {
         console.log("respuesta",response);
         return response.map(d => new AlumnoNotasFinalesModel(d));
@@ -27,7 +27,7 @@ export class AlumnoListNotasFinalesService {
 
   public saveNotasFinalesAlumnos(objarray: AlumnoNotasFinalesModel[]): Observable<any>{
     return this._http
-      .post<any>(this.rutaCurso + `/nota/create_nota_final.php`,objarray)
+      .post<any>(this.rutaCurso + `/nota/create_curso_alumno_nota.php`,objarray)
       .map((response: any) => {
        console.log('response', response);
        this.utilsservice.showMensaje(true);

@@ -13,7 +13,9 @@ import { AlumnoListNotasService } from '../../../../services/ges-notas/alumno-li
     styleUrls: ['./nota-alumno.component.scss'],
   })
   export class NotaAlumnoComponent {
+    idpro:any;
     idCur:any;
+    idtur:any;
     nombCur:string;
     turnCur:string;
     tipnot:any;
@@ -24,7 +26,7 @@ import { AlumnoListNotasService } from '../../../../services/ges-notas/alumno-li
 
     constructor(private modalService: NgbModal,private route: ActivatedRoute, private AlumnoListNotasService:AlumnoListNotasService) {
       this.nombCur="Curso";
-      this.turnCur=" ";
+      this.turnCur="Turno";
       this.cars = [
         {"aludni":"22334455","curid":"16","tipnottipo":"1","notval":"88"},
         {"aludni":"22334455","curid":"16","tipnottipo":"2","notval":"12"},
@@ -40,7 +42,9 @@ import { AlumnoListNotasService } from '../../../../services/ges-notas/alumno-li
       ];
                 route.params.subscribe(
                     data => {
+                        this.idpro = data.proid;
                         this.idCur = data.curid;
+                        this.idtur = data.turid;
                         this.tipnot = data.tipnottipo;
                     },
                 );
@@ -55,10 +59,11 @@ import { AlumnoListNotasService } from '../../../../services/ges-notas/alumno-li
 
     listarAlumnoNotas() {
       this.loading = true;
-      this.AlumnoListNotasService.getListarNotasAlumnos(this.idCur,this.tipnot)
+      this.AlumnoListNotasService.getListarNotasAlumnos(this.idpro,this.idCur,this.idtur,this.tipnot)
         .subscribe(res => {
           this.listaAlumnosNotas= res;
           this.nombCur=this.listaAlumnosNotas[0].curnom;
+          this.turnCur=this.listaAlumnosNotas[0].turnom;
           this.loading = false;
           console.log("Notas alumnos ",this.listaAlumnosNotas);
           console.log("nomb del curso ",this.listaAlumnosNotas[0].curnom);

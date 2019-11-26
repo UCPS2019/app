@@ -7,6 +7,8 @@ export class GesAlumnoDetalleModel {
     proid: string;
     pronom: string;
     matfec: string;
+    cuotaspag:string;
+    procuota:string;
     constructor(obj?: any) {
       this.aludni = obj && (obj.aludni) || null;
       this.alunom = obj && (obj.alunom) || null;
@@ -16,6 +18,8 @@ export class GesAlumnoDetalleModel {
       this.proid = obj && obj.proid || null;  
       this.pronom = obj && obj.pronom || null;
       this.matfec = obj && obj.matfec || null;      
+      this.cuotaspag=obj && obj.cuotaspag || null; 
+      this.procuota=obj && obj.procuota || null; 
     }
   }
 

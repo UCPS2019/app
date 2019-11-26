@@ -11,8 +11,11 @@ import { AlumnoListNotasFinalesService } from '../../../../services/ges-notas/al
 })
 
 export class NotasFinalesComponent implements OnInit {
+  idpro: any;
   idCur: any;
+  idtur:any;
   nombCur: any;
+  turnCur: any;
   cars: any[];
   loading = false;
   listaNotasFinales: AlumnoNotasFinalesModel[] = [];
@@ -20,6 +23,7 @@ export class NotasFinalesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private alumnolistnotasfinalesservice: AlumnoListNotasFinalesService) {
     this.nombCur="curso";
+    this.turnCur="turno";
     this.cars = [
       { "aludni": "22334455", "alunom": "Jorge", "aluapepat": "Gonzáles", "aluapemat": "Pérez", "not1val": "16", "not2val": "17", "not3val": "18", "notprom": "17", "notfinal": "0", },
       { "aludni": "22334455", "alunom": "Luis", "aluapepat": "Flores", "aluapemat": "Salas", "not1val": "15", "not2val": "19", "not3val": "10", "notprom": "16", "notfinal": "0", },
@@ -28,9 +32,29 @@ export class NotasFinalesComponent implements OnInit {
 
     route.params.subscribe(
       data => {
+        this.idpro = data.proid;
         this.idCur = data.curid;
+        this.idtur = data.turid;
       },
     );
+
+    switch(this.idtur) { 
+      case "1": { 
+        this.turnCur = "Mañana";
+         break; 
+      } 
+      case "2": { 
+        this.turnCur = "Tarde"; 
+         break; 
+      } 
+      case "3": { 
+        this.turnCur = "Noche"; 
+        break; 
+     } 
+      default: { 
+         break; 
+      } 
+   } 
   }
 
   ngOnInit(): void {
@@ -40,35 +64,46 @@ export class NotasFinalesComponent implements OnInit {
 
   listarAlumnoNotasFinales() {
     this.loading = true;
-    this.alumnolistnotasfinalesservice.getListarNotasFinalesAlumnos(this.idCur)
+    this.alumnolistnotasfinalesservice.getListarNotasFinalesAlumnos(this.idpro,this.idCur,this.idtur)
       .subscribe(res => {
         this.listaNotasFinales = res;
         this.nombCur=this.listaNotasFinales[0].curnom;
+        for (let i = 0; i < this.listaNotasFinales.length; i++) {
+          this.listaNotasFinales[i].curid=this.idCur;
+        }        
         this.loading = false;
         console.log("Notas alumnos ", this.listaNotasFinales);
       });
+      
   }
 
   actualizarListNotasParcial1(posicion, descripcion) {
     if (descripcion.value) {
       if (descripcion.value >= 0 && descripcion.value <= 20) {
-        this.listaNotasFinales[posicion].notas[1] = descripcion.value;
-        console.log(this.listaNotasFinales[posicion].notas[1]);
+        this.listaNotasFinales[posicion][1] = descripcion.value;
+        console.log(this.listaNotasFinales[posicion][1]);
         console.log('valido');
 
-        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.ceil((Number(this.listaNotasFinales[posicion].notas[1])+
-                                                            Number(this.listaNotasFinales[posicion].notas[2])+
-                                                            Number(this.listaNotasFinales[posicion].notas[3]) )/3));
+        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.round((Number(this.listaNotasFinales[posicion][1])+
+                                                            Number(this.listaNotasFinales[posicion][2])+
+                                                            Number(this.listaNotasFinales[posicion][3]) )/3));
         console.log("Promedio ",this.listaNotasFinales[posicion].notfinpromfinal);
 
-        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11){
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "APROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
-        }else {
+        }
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)< 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "DESAPROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
         }
-
+        
       } else {
         console.log('invalido');
         descripcion.value = '0';
@@ -81,19 +116,26 @@ export class NotasFinalesComponent implements OnInit {
   actualizarListNotasParcial2(posicion, descripcion) {
     if (descripcion.value) {
       if (descripcion.value >= 0 && descripcion.value <= 20) {
-        this.listaNotasFinales[posicion].notas[2] = descripcion.value;
-        console.log(this.listaNotasFinales[posicion].notas[2]);
+        this.listaNotasFinales[posicion][2] = descripcion.value;
+        console.log(this.listaNotasFinales[posicion][2]);
         console.log('valido');
         
-        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.ceil((Number(this.listaNotasFinales[posicion].notas[1])+
-                                                            Number(this.listaNotasFinales[posicion].notas[2])+
-                                                            Number(this.listaNotasFinales[posicion].notas[3]) )/3));
+        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.round((Number(this.listaNotasFinales[posicion][1])+
+                                                            Number(this.listaNotasFinales[posicion][2])+
+                                                            Number(this.listaNotasFinales[posicion][3]) )/3));
         console.log("Promedio ",this.listaNotasFinales[posicion].notfinpromfinal);
         
-        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11){
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "APROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
-        }else {
+        }
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)< 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "DESAPROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
         }
@@ -110,19 +152,26 @@ export class NotasFinalesComponent implements OnInit {
   actualizarListNotasParcial3(posicion, descripcion) {
     if (descripcion.value) {
       if (descripcion.value >= 0 && descripcion.value <= 20) {
-        this.listaNotasFinales[posicion].notas[3] = descripcion.value;
-        console.log(this.listaNotasFinales[posicion].notas[3]);
+        this.listaNotasFinales[posicion][3] = descripcion.value;
+        console.log(this.listaNotasFinales[posicion][3]);
         console.log('valido');
 
-        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.ceil((Number(this.listaNotasFinales[posicion].notas[1])+
-                                                            Number(this.listaNotasFinales[posicion].notas[2])+
-                                                            Number(this.listaNotasFinales[posicion].notas[3]) )/3));
+        this.listaNotasFinales[posicion].notfinpromfinal= String(Math.round((Number(this.listaNotasFinales[posicion][1])+
+                                                            Number(this.listaNotasFinales[posicion][2])+
+                                                            Number(this.listaNotasFinales[posicion][3]) )/3));
         console.log("Promedio ",this.listaNotasFinales[posicion].notfinpromfinal);
         
-        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11){
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)>= 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "APROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
-        }else {
+        }
+        if(Number(this.listaNotasFinales[posicion].notfinpromfinal)< 11 &&
+                  this.listaNotasFinales[posicion][1]!=null &&
+                  this.listaNotasFinales[posicion][2]!=null &&
+                  this.listaNotasFinales[posicion][3]!=null){
           this.listaNotasFinales[posicion].notfinestado= "DESAPROBADO";
           console.log('ESTADO: ',this.listaNotasFinales[posicion].notfinestado);
         }

@@ -5,27 +5,29 @@ import {UtilsService} from '../utils.service';
 import { throwError } from 'rxjs';
 import 'rxjs-compat/add/operator/map';
 import 'rxjs-compat/add/operator/catch';
-import { AlumnoNotasModel } from '../../models/ges-nota/alumno-notas.model';
+import { AlumnoAplazadosModel } from '../../models/ges-nota/alumno-aplazados.model';
+import { AlumnoNotasFinalesModel } from '../../models/ges-nota/alumno-notas-finales.model';
 
 @Injectable()
-export class AlumnoListNotasService {
+export class AlumnoAplazadosService {
    rutaCurso = 'https://api-ucps-unsa.herokuapp.com/api';
   constructor(private _http: HttpClient,
               private utilsservice: UtilsService) {
 
   }
+
   
-  public getListarNotasAlumnos(proid:string, curid: string, turid:string, tipnottipo: string): Observable<AlumnoNotasModel[]> {
+  public getListarCursosAlumno(proid: string, aludni: string): Observable<AlumnoAplazadosModel[]> {
     return this._http
-      .post<any>(this.rutaCurso + `/nota/read_curso_notas.php`,'{"proid":"'+proid+'","curid":"'+curid+'","turid":"'+turid+'","tipnottipo":"'+tipnottipo+'"}')
+      .post<any>(this.rutaCurso + `/nota/read_nota_aplazados.php`,'{"proid":"' + proid+'","aludni":"'+aludni+'"}')
       .map((response: any) => {
-        console.log('response', response);
-        return response.map(d => new AlumnoNotasModel(d));
+        console.log("respuesta",response);
+        return response.map(d => new AlumnoAplazadosModel(d));
       })
       .catch(this.handleError);
   }
 
-  public saveNotasAlumnos(objarray: AlumnoNotasModel[]): Observable<any>{
+  public saveNotasAplazadosAlumnos(objarray: AlumnoNotasFinalesModel[]): Observable<any>{
     return this._http
       .post<any>(this.rutaCurso + `/nota/create_curso_alumno_nota.php`,objarray)
       .map((response: any) => {
@@ -35,6 +37,8 @@ export class AlumnoListNotasService {
      })
       .catch(this.handleError);
   }
+  
+
 
   private handleError(error: any): Observable<any> {
     this.utilsservice.showMensaje(false);

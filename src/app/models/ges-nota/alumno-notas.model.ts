@@ -6,9 +6,9 @@ export class AlumnoNotasModel {
     alunom:string;
     aluapepat:string;
     aluapemat:string;
-    tipnotid:string;
     tipnottipo:string;
-    tipnotporc:string;
+    turid:string;
+    turnom:string;
     notval:string;
     
 constructor(obj?: any) {
@@ -18,9 +18,9 @@ constructor(obj?: any) {
     this.alunom = obj && (obj.alunom) || null;
     this.aluapepat = obj && (obj.aluapepat) || null;
     this.aluapemat = obj && (obj.aluapemat) || null;
-    this.tipnotid = obj && (obj.tipnotid) || null;
     this.tipnottipo = obj && (obj.tipnottipo) || null;
-    this.tipnotporc = obj && (obj.tipnotporc) || null;
+    this.turid = obj && (obj.turid) || null;
+    this.turnom = obj && (obj.turnom) || null;
     this.notval = obj && (obj.notval) || null;
     }
 }
