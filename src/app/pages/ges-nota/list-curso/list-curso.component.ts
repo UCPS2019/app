@@ -42,11 +42,11 @@ export class ListCursoComponent implements OnInit {
 
   listarCursosDocente() {
     this.loading = true;
-    this.docentelistcursoservice.getListarCursosDocente('65881477')
+    this.docentelistcursoservice.getListarCursosDocente(this.dnidoc)
       .subscribe(res => {
         this.listaCursosDocente = res;//res
-        this.nomdoc= this.listaCursosDocente[0].docnom+" "+this.listaCursosDocente[0].docapepat+" "+
-                      this.listaCursosDocente[0].docapemat;
+        // this.nomdoc= this.listaCursosDocente[0].docnom+" "+this.listaCursosDocente[0].docapepat+" "+
+        //               this.listaCursosDocente[0].docapemat;
         this.loading = false;
         console.log("Curso docentes ",this.listaCursosDocente);
       });

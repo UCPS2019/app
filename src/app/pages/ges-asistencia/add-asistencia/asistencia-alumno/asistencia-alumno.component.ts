@@ -180,8 +180,7 @@ import { AsistenciaModificarModel } from '../../../../models/ges_asistencia/asis
             .subscribe(res => {
   
               this.alumnoDocentelist= res;            
-              this.listartAsistencia();
-              console.log("YA EXISTE");       
+              this.listartAsistencia();    
             });
           }else{
             this.alumnoDocenteService.getListarAlumnosDocentes(this.dnido,this.idPro,this.idCur)

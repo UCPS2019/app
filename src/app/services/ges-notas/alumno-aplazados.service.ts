@@ -29,7 +29,7 @@ export class AlumnoAplazadosService {
 
   public saveNotasAplazadosAlumnos(objarray: AlumnoNotasFinalesModel[]): Observable<any>{
     return this._http
-      .post<any>(this.rutaCurso + `/nota/create_curso_alumno_nota.php`,objarray)
+      .post<any>(this.rutaCurso + `/nota/create_nota_aplazados.php`,objarray)
       .map((response: any) => {
        console.log('response', response);
        this.utilsservice.showMensaje(true);

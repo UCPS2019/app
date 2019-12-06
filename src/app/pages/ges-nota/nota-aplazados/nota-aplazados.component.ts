@@ -90,7 +90,7 @@ export class NotaAplazadosComponent implements OnInit {
 
   seleccionPrograma() {
     console.log(this.selectedPrograma.proid);
-    this.listarCursosAplazados(this.selectedPrograma.proid, '12345678');
+    this.listarCursosAplazados(this.selectedPrograma.proid, this.dniAlumno.aludni);
   }
 
   listarCursosAplazados(codPro: any, aludni: any) {
@@ -141,6 +141,15 @@ export class NotaAplazadosComponent implements OnInit {
         this.listGuardarAplazados[posicion].notfinaplazado = descripcion.value;
         console.log(this.listGuardarAplazados[posicion].notfinaplazado);
         console.log('valido');
+
+        if(Number(this.listGuardarAplazados[posicion].notfinaplazado)>= 11) {
+          this.listGuardarAplazados[posicion].notfinestado= "APROBADO";
+          console.log('ESTADO: ',this.listGuardarAplazados[posicion].notfinestado);
+        }
+        if(Number(this.listGuardarAplazados[posicion].notfinaplazado)< 11){
+          this.listGuardarAplazados[posicion].notfinestado= "DESAPROBADO";
+          console.log('ESTADO: ',this.listGuardarAplazados[posicion].notfinestado);
+        }
 
       } else {
         console.log('invalido');

@@ -38,11 +38,11 @@ export class LibretaNotasComponent implements OnInit {
 
   listarProgramasAlumno() {
     this.loading = true;
-    this.alumnolistprogramasservice.getListarProgramaAlumno('12345678')
+    this.alumnolistprogramasservice.getListarProgramaAlumno(this.dnialu)
       .subscribe(res => {
         this.listaProgramasAlumno = res;
-        this.nomalu= this.listaProgramasAlumno[0].alunom+" "+this.listaProgramasAlumno[0].aluapepat+" "+
-                      this.listaProgramasAlumno[0].aluapemat;
+        // this.nomalu= this.listaProgramasAlumno[0].alunom+" "+this.listaProgramasAlumno[0].aluapepat+" "+
+        //               this.listaProgramasAlumno[0].aluapemat;
         
         this.listProgramas=this.listaProgramasAlumno[0].programas;
         console.log("Programa alumno ",this.listaProgramasAlumno);
@@ -53,7 +53,7 @@ export class LibretaNotasComponent implements OnInit {
   
   seleccionPrograma(){
     console.log(this.selectedPrograma.proid);
-    this.listarCursosAlumno(this.selectedPrograma.proid, '12345678');
+    this.listarCursosAlumno(this.selectedPrograma.proid, this.dnialu);
   }
 
   listarCursosAlumno(codPro:any, aludni:any ) {

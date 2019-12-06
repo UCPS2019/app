@@ -20,6 +20,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import { AsistenciaDetalleComponent } from './add-asistencia/asistencia-detalle/asistencia-detalle.component';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
+import { SeguridadService } from '../../services/authentication/seguridad.service';
 
 const rutasgesusu: Routes = [{
 
@@ -74,6 +75,7 @@ const rutasgesusu: Routes = [{
     CursoDocenteService,
     AlumnoDocenteService,
     AsistenciaDatosService,
+    SeguridadService,
   ],
 })
 export class GesAsistenciaModule { }

@@ -227,25 +227,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ges-nota/notaaplazados',
       },
     ],
-
-
-  },
-
-  {
-    title: 'Docente Curso',
-    icon: 'nb-compose',
-    hidden:true,
-    data:[{
-      number:4   
-    }],
-    children: [
-      {
-        title: 'Asignacion',
-        link: '/pages/ges-configuracion/DocenteCurso',
-      },
-    ],
-
-
   },
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 

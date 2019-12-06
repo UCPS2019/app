@@ -47,10 +47,6 @@ const routes: Routes = [{
     loadChildren: './ges-nota/ges-nota.module#GesNotaModule',
   },
   {
-    path: 'ges-configuracion',
-    loadChildren: './ges-configuracion/ges-confi.module#GesConfModule',
-  },
-  {
     path : 'view-home',
     component: GesHomeComponent,
   },

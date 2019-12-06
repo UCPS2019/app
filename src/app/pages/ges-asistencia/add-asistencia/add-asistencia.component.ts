@@ -9,6 +9,7 @@ import { CursoDocenteService } from '../../../services/ges-asistencia/cursodocen
 import { CursoDocenteModel, Horario } from '../../../models/ges_asistencia/curso-docente.Model';
 import { DebugContext } from '@angular/core/src/view';
 import { AsistenciaAlumnoComponent } from './asistencia-alumno/asistencia-alumno.component';
+import { SeguridadService } from '../../../services/authentication/seguridad.service';
 
 @Component({
   selector: 'ngx-add-asistencia',
@@ -23,8 +24,9 @@ export class AddAsistenciaComponent implements OnInit {
   listaProgramaDocente: ProgramaDocenteModel []=[];
   listaCursoDocente: CursoDocenteModel []=[];
   listaHorario : Horario[]=[];
-  
-  constructor(private router: Router,private programadocenteservice:ProgramaDocenteService, private cursodocenteservice:CursoDocenteService)  {
+  dnidoc:string;
+
+  constructor(private router: Router,private programadocenteservice:ProgramaDocenteService, private cursodocenteservice:CursoDocenteService,private seguridadService: SeguridadService)  {
     this.cont=1;
     this.cars = [
       { fila: '1', dia: 'Lunes',ciclo:"II",seccion:'A',curso:'GASTRONOMIA-EDUCACION',horainicial:'07:15',horafinal:'08:45'},
@@ -37,14 +39,14 @@ export class AddAsistenciaComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
-    this.listarProgramaDocente();
+    this.dnidoc=this.seguridadService.getTokenAsObj().jti;
+    this.listarProgramaDocente();   
   
   
   }
   listarProgramaDocente() {
     this.loading = true;
-    this.programadocenteservice.getListarProgramaDocente('65881477')
+    this.programadocenteservice.getListarProgramaDocente(this.dnidoc)
       .subscribe(res => {
         this.listaProgramaDocente = res;
       });
@@ -55,25 +57,23 @@ export class AddAsistenciaComponent implements OnInit {
   }
   listarCursosDocente(codPro:any) {
     this.loading = true;
-    this.cursodocenteservice.getListarCursoDocente('65881477',codPro)
+    this.cursodocenteservice.getListarCursoDocente(this.dnidoc,codPro)
       .subscribe(res => {
         this.listaCursoDocente = res;
         for(var i=0;i<this.listaCursoDocente.length;i++){
            this.listaCursoDocente[i].idCurso=i+1;
            this.listaHorario = this.listaCursoDocente[i].horario;
         }
-        
-        console.log("Mis Listas",this.listaCursoDocente);
       });
   }
  
   abrirDetallesAsistencia(idcur:number) {
         
-        this.router.navigate(['/pages/ges-asistencia/asistenciaalumno/'+ idcur+'/'+this.selectedPrograma.proid+"/"+"65881477"]);
+        this.router.navigate(['/pages/ges-asistencia/asistenciaalumno/'+ idcur+'/'+this.selectedPrograma.proid+"/"+this.dnidoc]);
   }
   abrirDetalles() {
         
-    this.router.navigate(['/pages/ges-asistencia/asistenciadetalle/'+"65881477"]);
+    this.router.navigate(['/pages/ges-asistencia/asistenciadetalle/'+this.dnidoc]);
 }
   
   

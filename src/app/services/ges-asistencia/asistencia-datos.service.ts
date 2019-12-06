@@ -10,6 +10,7 @@ import { AsistencaDatodModel } from '../../models/ges_asistencia/asistencia-dato
 import { AlumnoAsistDocenteModel } from '../../models/ges_asistencia/asistencias-alumno.model';
 import { AsistencaAlumnoModificarModel } from '../../models/ges_asistencia/asistencia-alumno-modificar.model';
 import { AsistenciaModificarModel } from '../../models/ges_asistencia/asistencia-modificar.model';
+import { AlumnoHistorialAllModel } from '../../models/ges_asistencia/asistencia_historial_all.model';
 
 @Injectable()
 export class AsistenciaDatosService {
@@ -26,7 +27,19 @@ export class AsistenciaDatosService {
       })
       .catch(this.handleError);
   }
-  
+
+
+  public getListarHistoriaAsistenciaAll(fecini:string ,fecfin:string,dni: string ,idcur:string,idpro :string): Observable<AlumnoHistorialAllModel[]> {
+    return this._http
+    .post<any>(this.rutaAsist + `/asistencia/historial_asis_alumno_all.php`,'{"fecini":"' + fecini +'","fecfin":"'+fecfin+'","docdni":"'+dni+'","curid":"'+idcur+'","proid":"'+idpro+'"}')
+      .map((response: any) => {        
+        return  response.map(d => new AlumnoHistorialAllModel(d));
+      })
+      .catch(this.handleError);
+  }
+
+
+
   public postCrearAsistenciaAlumno(asistencias: AlumnoAsistDocenteModel): Observable<AlumnoAsistDocenteModel> {
     return this._http
       .post(this.rutaAsist + `/asistencia/create.php `, asistencias)

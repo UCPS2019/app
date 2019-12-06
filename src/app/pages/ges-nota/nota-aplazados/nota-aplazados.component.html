@@ -68,7 +68,7 @@
                     <th>Nombre Curso</th>
                     <th>Turno</th>
                     <th>Condición</th>
-                    <th>Promedio final</th>
+                    <!-- <th>Promedio final</th> -->
                     <th>Nota aplazados</th>
                 </tr>
             </ng-template>
@@ -79,7 +79,7 @@
                     <td>{{aplaz.curnom}}</td>
                     <td>{{aplaz.turnom}}</td>
                     <td>{{aplaz.notfinestado}}</td>
-                    <td>{{aplaz.notfinpromfinal}}</td>                    
+                    <!-- <td>{{aplaz.notfinpromfinal}}</td>                     -->
                     <td><input type="number" class="form-control form-control-sm"
                         (change)="actualizarListNotasAplazados(i, $event.target)"
                         value="{{aplaz.notfinaplazado}}" >

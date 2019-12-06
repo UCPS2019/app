@@ -13,6 +13,8 @@ import { ProgramaDocenteModel } from '../../../../models/ges_asistencia/programa
 import { ProgramaDocenteService } from '../../../../services/ges-asistencia/programadocente.service';
 import { CursoDocenteModel } from '../../../../models/ges_asistencia/curso-docente.model';
 import { CursoDocenteService } from '../../../../services/ges-asistencia/cursodocente.service';
+import { AlumnoHistorialAllModel, AlumnosAsistenciasAll } from '../../../../models/ges_asistencia/asistencia_historial_all.model';
+import { SeguridadService } from '../../../../services/authentication/seguridad.service';
 
 @Component({
     selector: 'ngx-asistencia-detalle',
@@ -27,12 +29,17 @@ import { CursoDocenteService } from '../../../../services/ges-asistencia/cursodo
     datee:any;
     selectedDocente:any;
     date11:any;
+    date12:any;
     selectedPrograma:any;
     alumnoDocentelist:AlumnoDocenteModel[]=[];
+    listarHistorialAll:AlumnoHistorialAllModel[]=[];
+    listarHistoriaFecha:AlumnosAsistenciasAll[]=[];
+    dnidoc:string;
     selectedCurso :any;
     listaProgramaDocente: ProgramaDocenteModel []=[];
     listaCursoDocente: CursoDocenteModel []=[];
-    constructor(private route: ActivatedRoute,private datePipe: DatePipe, private alumnoDocenteService:AlumnoDocenteService,private programadocenteservice:ProgramaDocenteService,private cursodocenteservice:CursoDocenteService) {
+    constructor(private route: ActivatedRoute,private datePipe: DatePipe, private alumnoDocenteService:AlumnoDocenteService,private programadocenteservice:ProgramaDocenteService
+      ,private cursodocenteservice:CursoDocenteService,private asistenciaService:AsistenciaDatosService,private seguridadService: SeguridadService) {
             route.params.subscribe(
                 data => {
                     this.dnido = data.dni;
@@ -40,18 +47,28 @@ import { CursoDocenteService } from '../../../../services/ges-asistencia/cursodo
             );         
     }
     ngOnInit(): void {
-        //this.listarAlumnosCursos();
+      this.dnidoc=this.seguridadService.getTokenAsObj().jti;
         this.listarProgramaDocente();
+        //this.listarHistorialAllAsistencia();
     }
     listarProgramaDocente() {
         // this.loading = true;
-         this.programadocenteservice.getListarProgramaDocente('65881477')
+         this.programadocenteservice.getListarProgramaDocente(this.dnido)
            .subscribe(res => {
              this.listaProgramaDocente = res;
-             console.log("LISTA",this.listaProgramaDocente);
            });
      }
+     
+     listarHistorialAllAsistencia(){
+      this.asistenciaService.getListarHistoriaAsistenciaAll("2019-09-29","2019-12-29","65881477","1","1")
+      .subscribe(res => {
+        this.listarHistorialAll = res;
+        this.listarHistoriaFecha = res[0].historialasis
+      });
+     }
+
     listarAlumnosCursos(){
+      
         this.alumnoDocenteService.getListarAlumnosDocentes(this.dnido,this.idPro,this.idCur)
             .subscribe(res => {
               this.alumnoDocentelist= res;
@@ -61,14 +78,22 @@ import { CursoDocenteService } from '../../../../services/ges-asistencia/cursodo
             });
     }
 
-    btn_clickAgregarAsistencia(){        
+    btn_clickMostrarAsistencias(){        
+       
+        // var mifecha = this.datePipe.transform(this.date11,'yyyy-MM-dd');
+        // var mifecha2 = this.datePipe.transform(this.date12,'yyyy-MM-dd');
+        // console.log("Fecha Inicial",this.date11);
+        // console.log("Fecha Final",this.date12);
+        // console.log("DNI",this.dnido);
+        // console.log("CURSO",this.idCur);
+        // console.log("PROGRAMA",this.idPro);
 
-        console.log("este Programa",this.selectedPrograma.proid);
-        console.log("este Curso",this.selectedCurso.idCurso);
-        console.log("esta Fecha",this.date11);
-        this.alumnoDocenteService.getListarAlumnoDocente(this.dnido,this.selectedCurso.idCurso,this.date11)
+
+        this.asistenciaService.getListarHistoriaAsistenciaAll(this.date11,this.date12,this.dnido,this.selectedCurso.idCurso,this.selectedPrograma.proid)
         .subscribe(res => {
-          this.alumnoDocentelist= res;                 
+
+          this.listarHistorialAll = res;  
+          this.listarHistoriaFecha = res[0].historialasis
         });
     }
     listarCursoDocente(){
@@ -80,7 +105,7 @@ import { CursoDocenteService } from '../../../../services/ges-asistencia/cursodo
         this.listarCursosDocente(this.selectedPrograma.proid);
     }
     listarCursosDocente(codPro:any){
-        this.cursodocenteservice.getListarCursoDocente('65881477',codPro)
+        this.cursodocenteservice.getListarCursoDocente(this.dnidoc,codPro)
         .subscribe(res => {
         this.listaCursoDocente = res;
         for(var i=0;i<this.listaCursoDocente.length;i++){
